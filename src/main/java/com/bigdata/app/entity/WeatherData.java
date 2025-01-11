@@ -1,24 +1,26 @@
 package com.bigdata.app.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.Embedded;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-@Table
+import java.util.Date;
+import java.util.UUID;
+
+@Table("weather_data")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class WeatherData {
     @Id
     @PrimaryKey
-    private Long id;
+    private UUID id;
 
     @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL)
     protected MainWeatherData mainWeatherData;
@@ -32,4 +34,5 @@ public class WeatherData {
     @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL)
     protected CloudData cloudData;
 
+    protected String timestamp;
 }
